@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Jualan Saldo Digital</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .product-logo {
+      height: 40px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: green;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🛒 Jual Saldo & Pulsa</h2>
+
+  <div class="card">
+    <label><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Logo_DANA.png" class="product-logo">Saldo DANA</label>
+    <select id="dana">
+      <option value="">Pilih Nominal</option>
+      <option value="10.000">Rp 50.000</option>
+      <option value="20.000">Rp 25.000</option>
+      <option value="50.000">Rp 55.000</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <label><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/GoPay_Logo.svg" class="product-logo">Saldo GoPay</label>
+    <select id="gopay">
+      <option value="">Pilih Nominal</option>
+      <option value="10.000">Rp 15.000</option>
+      <option value="25.000">Rp 30.000</option>
+      <option value="100.000">Rp 105.000</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <label><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/OVO_logo_2019.svg" class="product-logo">Saldo OVO</label>
+    <select id="ovo">
+      <option value="">Pilih Nominal</option>
+      <option value="15.000">Rp 20.000</option>
+      <option value="30.000">Rp 35.000</option>
+      <option value="75.000">Rp 80.000</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <label><img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" class="product-logo">Pulsa</label>
+    <select id="pulsa">
+      <option value="">Pilih Nominal</option>
+      <option value="5.000">Rp 8.000</option>
+      <option value="10.000">Rp 15.000</option>
+      <option value="50.000">Rp 55.000</option>
+    </select>
+  </div>
+
+  <button onclick="pesanWA()">Pesan Sekarang via WhatsApp</button>
+
+  <script>
+    function pesanWA() {
+      let nomorWa = "6281234567890"; // Ganti dengan nomor WA Anda
+      let pesan = "Halo, saya ingin pesan:\n";
+
+      let dana = document.getElementById("dana").value;
+      let gopay = document.getElementById("gopay").value;
+      let ovo = document.getElementById("ovo").value;
+      let pulsa = document.getElementById("pulsa").value;
+
+      if (dana) pesan += `- Saldo DANA: Rp ${dana}\n`;
+      if (gopay) pesan += `- Saldo GoPay: Rp ${gopay}\n`;
+      if (ovo) pesan += `- Saldo OVO: Rp ${ovo}\n`;
+      if (pulsa) pesan += `- Pulsa: Rp ${pulsa}\n`;
+
+      if (pesan === "Halo, saya ingin pesan:\n") {
+        alert("Silakan pilih minimal satu produk!");
+        return;
+      }
+
+      let url = `https://wa.me/${6285656709799}?text=${encodeURIComponent(pesan)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>
