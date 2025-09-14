@@ -2,110 +2,119 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Jualan Saldo Digital</title>
+  <title>Kalkulator Keren</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .kalkulator {
+      background-color: #ffffffcc;
       padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
+      animation: fadeIn 1s ease;
     }
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    .kalkulator img {
+      width: 60px;
+      margin-bottom: 10px;
     }
-    .product-logo {
-      height: 40px;
-      vertical-align: middle;
-      margin-right: 10px;
-    }
-    select, button {
-      width: 100%;
+
+    input[type="text"] {
+      width: 90%;
       padding: 10px;
-      margin-top: 10px;
-      font-size: 16px;
-    }
-    button {
-      background: green;
-      color: white;
+      font-size: 1.2em;
+      margin-bottom: 15px;
       border: none;
       border-radius: 8px;
+      text-align: right;
+      background-color: #f0f0f0;
+    }
+
+    .tombol {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 1em;
+      border: none;
+border-radius: 10px;
+      background-color: #4a90e2;
+      color: white;
       cursor: pointer;
+      transition: transform 0.1s ease, background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #357ABD;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
 <body>
-
-  <h2>🛒 Jual Saldo & Pulsa</h2>
-
-  <div class="card">
-    <label><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Logo_DANA.png" class="product-logo">Saldo DANA</label>
-    <select id="dana">
-      <option value="">Pilih Nominal</option>
-      <option value="10.000">Rp 50.000</option>
-      <option value="20.000">Rp 25.000</option>
-      <option value="50.000">Rp 55.000</option>
-    </select>
+  <div class="kalkulator">
+    <alt="Kalkulator">
+    <input type="text" id="layar" readonly>
+    <div class="tombol">
+      <button onclick="tambahAngka('7')">7</button>
+      <button onclick="tambahAngka('8')">8</button>
+      <button onclick="tambahAngka('9')">9</button>
+      <button onclick="tambahAngka('/')">÷</button>
+      
+      <button onclick="tambahAngka('4')">4</button>
+      <button onclick="tambahAngka('5')">5</button>
+      <button onclick="tambahAngka('6')">6</button>
+      <button onclick="tambahAngka('*')">×</button>
+      
+      <button onclick="tambahAngka('1')">1</button>
+      <button onclick="tambahAngka('2')">2</button>
+      <button onclick="tambahAngka('3')">3</button>
+      <button onclick="tambahAngka('-')">−</button>
+      <button onclick="hapus()">C</button>
+      <button onclick="tambahAngka('0')">0</button>
+      <button onclick="hitung()">=</button>
+      <button onclick="tambahAngka('+')">+</button>
+    </div>
   </div>
-
-  <div class="card">
-    <label><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/GoPay_Logo.svg" class="product-logo">Saldo GoPay</label>
-    <select id="gopay">
-      <option value="">Pilih Nominal</option>
-      <option value="10.000">Rp 15.000</option>
-      <option value="25.000">Rp 30.000</option>
-      <option value="100.000">Rp 105.000</option>
-    </select>
-  </div>
-
-  <div class="card">
-    <label><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/OVO_logo_2019.svg" class="product-logo">Saldo OVO</label>
-    <select id="ovo">
-      <option value="">Pilih Nominal</option>
-      <option value="15.000">Rp 20.000</option>
-      <option value="30.000">Rp 35.000</option>
-      <option value="75.000">Rp 80.000</option>
-    </select>
-  </div>
-
-  <div class="card">
-    <label><img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" class="product-logo">Pulsa</label>
-    <select id="pulsa">
-      <option value="">Pilih Nominal</option>
-      <option value="5.000">Rp 8.000</option>
-      <option value="10.000">Rp 15.000</option>
-      <option value="50.000">Rp 55.000</option>
-    </select>
-  </div>
-
-  <button onclick="pesanWA()">Pesan Sekarang via WhatsApp</button>
 
   <script>
-    function pesanWA() {
-      let nomorWa = "6281234567890"; // Ganti dengan nomor WA Anda
-      let pesan = "Halo, saya ingin pesan:\n";
+    function tambahAngka(angka) {
+      document.getElementById("layar").value += angka;
+    }
 
-      let dana = document.getElementById("dana").value;
-      let gopay = document.getElementById("gopay").value;
-      let ovo = document.getElementById("ovo").value;
-      let pulsa = document.getElementById("pulsa").value;
-
-      if (dana) pesan += `- Saldo DANA: Rp ${dana}\n`;
-      if (gopay) pesan += `- Saldo GoPay: Rp ${gopay}\n`;
-      if (ovo) pesan += `- Saldo OVO: Rp ${ovo}\n`;
-      if (pulsa) pesan += `- Pulsa: Rp ${pulsa}\n`;
-
-      if (pesan === "Halo, saya ingin pesan:\n") {
-        alert("Silakan pilih minimal satu produk!");
-        return;
+    function hitung() {
+      try {
+        let hasil = eval(document.getElementById("layar").value);
+        document.getElementById("layar").value = hasil;
+      } catch {
+        document.getElementById("layar").value = "Error";
       }
+    }
 
-      let url = `https://wa.me/${6285656709799}?text=${encodeURIComponent(pesan)}`;
-      window.open(url, "_blank");
+    function hapus() {
+      document.getElementById("layar").value = "";
     }
   </script>
-
 </body>
 </html>
